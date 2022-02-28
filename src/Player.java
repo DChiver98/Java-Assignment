@@ -1,13 +1,22 @@
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 public class Player {
 
-    int playerID;
-    String firstName;
-    String lastName;
-    int servePower;
-    int serveSkill;
-    int spin;
-    int forehandPower;
-    int backhandPower;
+    private int playerID;
+    private String firstName;
+    private String lastName;
+    private int servePower;
+    private int serveSkill;
+    private int spin;
+    private int forehandPower;
+    private int backhandPower;
 
     public Player(int playerID, String firstName, String lastName, int servePower, int serveSkill, int spin, int forehandPower, int backhandPower) {
         this.playerID = playerID;
@@ -82,6 +91,19 @@ public class Player {
 
     public void setBackhandPower(int backhandPower) {
         this.backhandPower = backhandPower;
+    }
+
+    public static ArrayList createPlayers() {
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader("src/Players.json")) {
+            Type listType = new TypeToken<ArrayList<Player>>() {}.getType();
+            ArrayList<Player> players = gson.fromJson(reader, listType);
+//            Collections.shuffle(players);
+            return players;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }
 
