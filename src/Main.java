@@ -5,7 +5,7 @@ import java.util.ArrayList;
  */
 public class Main {
 
-    static ArrayList<Player> thePlayer = new ArrayList<>();
+
 
 
     public static void main(String args[]) {
@@ -15,13 +15,13 @@ public class Main {
 //        int numberPlayers = obj.nextInt();
 //        System.out.println(numberPlayers);
 
-//        ArrayList players = Player.createPlayers();
-        thePlayer = Player.createPlayers();
-
-//        System.out.println( "class " + thePlayer.get(1).getFirstName() + " " + thePlayer.get(1).getLastName());
+        ArrayList<Player>players = Player.createPlayers();
+        players = Player.createPlayers();
 
 
-        thePlayer.forEach((n) -> System.out.println(n.getFirstName() + " " + n.getLastName()   ));
+//        System.out.println( players.get(1).getFirstName() + " " + players.get(1).getLastName());
+//
+        players.forEach((n) -> System.out.println(n.getFirstName() + " " +  n.getLastName()));
 
     }
 }

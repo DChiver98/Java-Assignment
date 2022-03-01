@@ -93,11 +93,11 @@ public class Player {
         this.backhandPower = backhandPower;
     }
 
-    public static ArrayList createPlayers() {
+    public static ArrayList<Player> createPlayers() {
         Gson gson = new Gson();
         try (Reader reader = new FileReader("src/Players.json")) {
             Type listType = new TypeToken<ArrayList<Player>>() {}.getType();
-            ArrayList<Player> players = gson.fromJson(reader, listType);
+            ArrayList<Player> players = gson.fromJson(reader,  listType);
 //            Collections.shuffle(players);
             return players;
         } catch (IOException ex) {
