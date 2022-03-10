@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Player {
 
@@ -16,9 +17,14 @@ public class Player {
     private int serveSkill;
     private int spin;
     private int forehandPower;
+    private int forehandSkill;
     private int backhandPower;
+    private int backhandSkill;
+    private boolean status = true;
+    private String leftOrRightHanded;
+    private int matchesWon = 0;
 
-    public Player(int playerID, String firstName, String lastName, int servePower, int serveSkill, int spin, int forehandPower, int backhandPower) {
+    public Player(int playerID, String firstName, String lastName, int servePower, int serveSkill, int spin, int forehandPower, int forehandSkill, int backhandPower, int backhandSkill, String leftOrRightHanded) {
         this.playerID = playerID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,80 +32,79 @@ public class Player {
         this.serveSkill = serveSkill;
         this.spin = spin;
         this.forehandPower = forehandPower;
+        this.forehandSkill = forehandSkill;
         this.backhandPower = backhandPower;
+        this.backhandSkill = backhandSkill;
+        this.leftOrRightHanded = leftOrRightHanded;
     }
 
     public int getPlayerID() {
         return playerID;
     }
 
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
-    }
-
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
     }
 
     public int getServePower() {
         return servePower;
     }
 
-    public void setServePower(int servePower) {
-        this.servePower = servePower;
-    }
-
     public int getServeSkill() {
         return serveSkill;
-    }
-
-    public void setServeSkill(int serveSkill) {
-        this.serveSkill = serveSkill;
     }
 
     public int getSpin() {
         return spin;
     }
 
-    public void setSpin(int spin) {
-        this.spin = spin;
-    }
-
     public int getForehandPower() {
         return forehandPower;
-    }
-
-    public void setForehandPower(int forehandPower) {
-        this.forehandPower = forehandPower;
     }
 
     public int getBackhandPower() {
         return backhandPower;
     }
 
-    public void setBackhandPower(int backhandPower) {
-        this.backhandPower = backhandPower;
+    public boolean getStatus() {
+        return status;
     }
 
-    public static ArrayList createPlayers() {
+    public int getServePercentage() {
+        return servePower * serveSkill;
+    }
+
+    public int getForehandPercentage() {
+        return forehandPower * forehandSkill;
+    }
+
+    public int getBackhandPercentage() {
+        return backhandPower * backhandSkill;
+    }
+
+    public String getLeftOrRightHanded() {
+        return this.leftOrRightHanded;
+    }
+
+    public int getmatchesWon() {
+        return this.matchesWon;
+    }
+
+    public static ArrayList<Player> createPlayers() {
         Gson gson = new Gson();
         try (Reader reader = new FileReader("src/Players.json")) {
             Type listType = new TypeToken<ArrayList<Player>>() {}.getType();
-            ArrayList<Player> players = gson.fromJson(reader, listType);
-//            Collections.shuffle(players);
-            return players;
+            ArrayList<Player> playersArray = gson.fromJson(reader, listType);
+            Collections.shuffle(playersArray);
+            return playersArray;
         } catch (IOException ex) {
             ex.printStackTrace();
         }
