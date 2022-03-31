@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
 
         System.out.println("          *****           ");
         System.out.println("        *-|-|-|-*         ");
@@ -17,18 +17,21 @@ public class Main {
         CreateTournament tournament = new CreateTournament();
         ArrayList<Player> players = tournament.getPlayers();
         System.out.println("Players in the tournament are : \n");
+
         for (Player player : players) {
             System.out.println(player.getFirstName() + " " + player.getLastName());
         }
-        for(Player player : players) {
-            int player1 = 0;
-            int player2 = 1;
-            while(player2 < players.size()) {
-                WinsMatch newMatch = new WinsMatch(players.get(player1), players.get(player2));
-                newMatch.simMatch();
-                player1 += 2;
-                player2 += 2;
+
+        int roundNum = 1;
+
+        while(players.size() > 1) {
+            System.out.println("\nROUND NUMBER : " + roundNum + "\n");
+            for(Player looser : tournament.playRound(players)) {
+                players.remove(looser);
             }
+            roundNum++;
         }
+
+        System.out.println("The winner is! : " + players.get(0).getFullName());
     }
 }

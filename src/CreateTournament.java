@@ -5,6 +5,10 @@ public class CreateTournament {
 
     private int numberPlayers;
 
+    public int getNumberPlayers() {
+        return numberPlayers;
+    }
+
     public ArrayList<Player> getPlayers() {
 
         //Ask user for the amount of players.
@@ -23,21 +27,23 @@ public class CreateTournament {
             Player player = playersArray.get(i);
             players.add(player);
         }
-
-        //If odd number of players add a dummy player.
-        if(numberPlayers % 2 != 0) {
-            Player dummy = new Player(0,"Dummy","Player",0,0,0,0,0,0,0, "left");
-            players.add(dummy);
-        }
         return players;
     }
 
-    public void DrawPlayers() {
+    public ArrayList<Player> playRound(ArrayList<Player> players) {
 
-        ArrayList<Player> drawOne = new ArrayList<>();
-        ArrayList<Player> drawTwo = new ArrayList<>();
+        ArrayList<Player> loosers = new ArrayList<>();
 
-
+        int player1 = 0;
+        int player2 = 1;
+        for(int i = 0; i < players.size()/2; i++) {
+            WinsGame newGame = new WinsGame(players.get(player1), players.get(player2));
+            Player looser = newGame.simMatch();
+            loosers.add(looser);
+            player1+=2;
+            player2+=2;
+        }
+        return loosers;
     }
 }
 

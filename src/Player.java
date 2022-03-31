@@ -8,14 +8,17 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Player {
+/**
+ * Player class creates player objects.
+ */
+
+public class Player implements SportsPlayer{
 
     private int playerID;
     private String firstName;
     private String lastName;
     private int servePower;
     private int serveSkill;
-    private int spin;
     private int forehandPower;
     private int forehandSkill;
     private int backhandPower;
@@ -24,70 +27,49 @@ public class Player {
     private String leftOrRightHanded;
     private int matchesWon = 0;
 
-    public Player(int playerID, String firstName, String lastName, int servePower, int serveSkill, int spin, int forehandPower, int forehandSkill, int backhandPower, int backhandSkill, String leftOrRightHanded) {
+    public Player(int playerID, String firstName, String lastName, int servePower, int serveSkill, int forehandPower, int forehandSkill, int backhandPower, int backhandSkill, String leftOrRightHanded) {
         this.playerID = playerID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.servePower = servePower;
         this.serveSkill = serveSkill;
-        this.spin = spin;
         this.forehandPower = forehandPower;
         this.forehandSkill = forehandSkill;
         this.backhandPower = backhandPower;
         this.backhandSkill = backhandSkill;
-        this.leftOrRightHanded = leftOrRightHanded;
+        this.leftOrRightHanded = leftOrRightHanded.toLowerCase();
     }
 
     public int getPlayerID() {
-        return playerID;
+        return this.playerID;
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
 
-    public int getServePower() {
-        return servePower;
-    }
-
-    public int getServeSkill() {
-        return serveSkill;
-    }
-
-    public int getSpin() {
-        return spin;
-    }
-
-    public int getForehandPower() {
-        return forehandPower;
-    }
-
-    public int getBackhandPower() {
-        return backhandPower;
-    }
-
     public boolean getStatus() {
-        return status;
+        return this.status;
     }
 
     public int getServePercentage() {
-        return servePower * serveSkill;
+        return this.servePower * this.serveSkill;
     }
 
     public int getForehandPercentage() {
-        return forehandPower * forehandSkill;
+        return this.forehandPower * this.forehandSkill;
     }
 
     public int getBackhandPercentage() {
-        return backhandPower * backhandSkill;
+        return this.backhandPower * this.backhandSkill;
     }
 
     public String getLeftOrRightHanded() {
@@ -97,6 +79,11 @@ public class Player {
     public int getmatchesWon() {
         return this.matchesWon;
     }
+
+    /**
+     * Reads players from JSON and puts them into a Array List.
+     * @return
+     */
 
     public static ArrayList<Player> createPlayers() {
         Gson gson = new Gson();
@@ -109,6 +96,11 @@ public class Player {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void showPlayerName() {
+        System.out.println("Player is called " + getFullName());
     }
 }
 
