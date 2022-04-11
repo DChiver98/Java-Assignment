@@ -1,18 +1,11 @@
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-
 /**
  * Player class creates player objects.
  */
 
 public class Player implements SportsPlayer{
+//    RH - this could extend a GeneralSportsPlayer class (which could be abstract)
+
+// add properties specific to a TT pplayer?
 
     private int playerID;
     private String firstName;
@@ -84,19 +77,6 @@ public class Player implements SportsPlayer{
      * Reads players from JSON and puts them into a Array List.
      * @return
      */
-
-    public static ArrayList<Player> createPlayers() {
-        Gson gson = new Gson();
-        try (Reader reader = new FileReader("src/Players.json")) {
-            Type listType = new TypeToken<ArrayList<Player>>() {}.getType();
-            ArrayList<Player> playersArray = gson.fromJson(reader, listType);
-            Collections.shuffle(playersArray);
-            return playersArray;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
 
     @Override
     public void showPlayerName() {

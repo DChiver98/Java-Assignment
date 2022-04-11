@@ -1,13 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CreateTournament {
+public class CreateTournament extends ArrayList {
 
     private int numberPlayers;
-
-    public int getNumberPlayers() {
-        return numberPlayers;
-    }
 
     public ArrayList<Player> getPlayers() {
 
@@ -15,13 +11,13 @@ public class CreateTournament {
         Scanner obj = new Scanner(System.in);
         System.out.println("How many players are there? : ");
         this.numberPlayers = obj.nextInt();
-        while(this.numberPlayers > Player.createPlayers().size()) {
+        while(this.numberPlayers > CreatePLayers.createPlayers().size()) {
             System.out.println("Too many players! Please choose a smaller number : ");
             this.numberPlayers = obj.nextInt();
         }
 
         //Retrieve number of players from player list.
-        ArrayList<Player> playersArray = Player.createPlayers();
+        ArrayList<Player> playersArray = CreatePLayers.createPlayers();
         ArrayList<Player> players = new ArrayList<>();
         for (int i = 0; i < numberPlayers; i++) {
             Player player = playersArray.get(i);

@@ -169,7 +169,7 @@ public class WinsGame {
 
     public boolean SuccessfulServe(Player player) {
 
-        System.out.println(player.getFullName() + " Will serve.");
+//        System.out.println(player.getFullName() + " Will serve.");
 
         Random rand = new Random();
         int number = rand.nextInt(50);

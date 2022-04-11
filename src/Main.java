@@ -1,23 +1,14 @@
 import java.util.ArrayList;
 
-public class Main {
-    public static void main(String args[]) throws Exception {
+public class Main extends Messages {
+    public static void main(String args[]) {
 
-        System.out.println("          *****           ");
-        System.out.println("        *-|-|-|-*         ");
-        System.out.println("       *-|-|-|-|-*        ");
-        System.out.println("       *-|-|-|-|-*        ");
-        System.out.println("        *-|-|-|-*         ");
-        System.out.println("          *****           ");
-        System.out.println("           | |            ");
-        System.out.println("           | |            ");
-        System.out.println("           |_|            ");
-        System.out.println("Welcome to the table tennis tournament simulator.");
-
+        Graphics.tennisRacket();
+        welcomeMessage();
+        CreatePLayers.createPlayers();
         CreateTournament tournament = new CreateTournament();
         ArrayList<Player> players = tournament.getPlayers();
-        System.out.println("Players in the tournament are : \n");
-
+        playersMessage();
         for (Player player : players) {
             System.out.println(player.getFirstName() + " " + player.getLastName());
         }
