@@ -1,3 +1,5 @@
+package Genral_Display;
+
 public abstract class Messages {
 
     public static void welcomeMessage() {

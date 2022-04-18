@@ -1,15 +1,18 @@
+import Genral_Display.Graphics;
+import Genral_Display.Messages;
+
 import java.util.ArrayList;
 
-public class Main extends Messages {
+public class Main {
     public static void main(String args[]) {
 
         Graphics.tennisRacket();
-        welcomeMessage();
-        CreatePLayers.createPlayers();
-        CreateTournament tournament = new CreateTournament();
-        ArrayList<Player> players = tournament.getPlayers();
-        playersMessage();
-        for (Player player : players) {
+        Messages.welcomeMessage();
+        CreatePlayers.createTableTennisPlayers();
+        TableTennisTournament tournament = new TableTennisTournament();
+        ArrayList<TableTennisPlayer> players = tournament.getPlayers();
+        Messages.playersMessage();
+        for (TableTennisPlayer player : players) {
             System.out.println(player.getFirstName() + " " + player.getLastName());
         }
 
@@ -17,7 +20,7 @@ public class Main extends Messages {
 
         while(players.size() > 1) {
             System.out.println("\nROUND NUMBER : " + roundNum + "\n");
-            for(Player looser : tournament.playRound(players)) {
+            for(TableTennisPlayer looser : tournament.playTournament(players)) {
                 players.remove(looser);
             }
             roundNum++;

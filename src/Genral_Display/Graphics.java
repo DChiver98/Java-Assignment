@@ -1,3 +1,5 @@
+package Genral_Display;
+
 public class Graphics {
 
     public static void tennisRacket() {
