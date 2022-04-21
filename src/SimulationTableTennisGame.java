@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class SimulationTableTennisGame extends TableTennisGame{
+public class SimulationTableTennisGame {
 
     private TableTennisPlayer player1;
     private TableTennisPlayer player2;
@@ -12,11 +12,12 @@ public class SimulationTableTennisGame extends TableTennisGame{
     private int player2Games;
 
     public SimulationTableTennisGame(TableTennisPlayer player1, TableTennisPlayer player2) {
-        super(player1, player2);
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public TableTennisPlayer playMatch() {
-        System.out.println(player1.getFullName() + " VS " + player2.getFullName());
+        System.out.println("\n" + player1.getFullName() + " VS " + player2.getFullName());
         int games = 0;
         while (games < 7) {
             playGame();
@@ -40,85 +41,44 @@ public class SimulationTableTennisGame extends TableTennisGame{
     }
 
     public void playGame() {
-//        int shotNumber = 1;
+
         while (player2Points < 11 && player1Points < 11) {
             playPoint();
-//            String shot = String.format("Shot %s", shotNumber);
-//            System.out.println(shot);
-//            shotNumber += 1;
-            if (player1Points == 11) {
-
-//              System.out.println(getPlayer1().getFullName() + " wins");
-                System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
+            if (player1Points == 11) {;
                 player1Games += 1;
                 break;
-
             } else if (player2Points == 11) {
-
-//              System.out.println(getPlayer2().getFullName() + " wins");
-                System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
                 player2Games += 1;
                 break;
-
-            } else if (player1Points == 10 && player2Points == 10) {
-
-                System.out.println("Deuce");
-                System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
+            } else if (player1Points == 10 && player2Points == 10) {;
                 playPoint();
-
                 while (true) {
-
                     if (player1Points == player2Points + 1) {
-                        System.out.println("Advantage " + player1.getFullName());
-                        System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
                         playPoint();
-
                         if (player1Points == player2Points + 2) {
-                            System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
-                            System.out.println(player1.getFullName() + " Wins the point.");
                             player1Games += 1;
                             break;
-
                         } else {
-
                             if (player1Points == 15) {
-                                System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
-                                System.out.println(player1.getFullName() + " Wins the point.");
                                 player1Games += 1;
                                 break;
                             } else {
-                                System.out.println("Deuce");
-                                System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
                                 playPoint();
                                 continue;
                             }
                         }
                     }
-
                     if (player2Points == player1Points + 1) {
-
-                        System.out.println("Advantage " + player2.getFullName());
-                        System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
                         playPoint();
-
                         if (player2Points == player1Points + 2) {
-
-                            System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
-                            System.out.println(player2.getFullName() + " Wins the point.");
                             player2Games += 1;
                             break;
-
                         } else {
                             if (player2Points == 15) {
-                                System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
-                                System.out.println(player1.getFullName() + " Wins the point.");
                                 player1Games += 1;
                                 break;
                             } else {
-                                System.out.println("Deuce");
-                                System.out.println(player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points);
                                 playPoint();
-                                continue;
                             }
                         }
                     }
@@ -137,7 +97,6 @@ public class SimulationTableTennisGame extends TableTennisGame{
                 if (returnBall(this.currentHit)) {
                     returnBall(this.currentHit);
                 } else {
-//                    System.out.println(currentHit.getFullName() + " fails to return the ball.");
                     break;
                 }
             }
@@ -167,8 +126,6 @@ public class SimulationTableTennisGame extends TableTennisGame{
 
     public boolean SuccessfulServe(TableTennisPlayer player) {
 
-//        System.out.println(player.getFullName() + " Will serve.");
-
         Random rand = new Random();
         int number = rand.nextInt(50);
         if (number <= player.getServePercentage()) {
@@ -176,7 +133,6 @@ public class SimulationTableTennisGame extends TableTennisGame{
             this.lastHit = player;
             return true;
         }
-//        System.out.println(player.getFullName() + " fails the serve.");
         return false;
     }
 
@@ -198,7 +154,6 @@ public class SimulationTableTennisGame extends TableTennisGame{
 
         if (player.getLeftOrRightHanded().equals("left") && sideOfTable.equals("left")) {
             if (hit <= player.getForehandPercentage()) {
-//                System.out.println(player.getFullName() + " returns the ball.");
                 this.currentHit = this.lastHit;
                 this.lastHit = player;
                 return true;
@@ -207,7 +162,6 @@ public class SimulationTableTennisGame extends TableTennisGame{
 
         if (player.getLeftOrRightHanded().equals("left") && sideOfTable.equals("right")) {
             if (hit <= player.getBackhandPercentage()) {
-//                System.out.println(player.getFullName() + " returns the ball.");
                 this.currentHit = this.lastHit;
                 this.lastHit = player;
                 return true;
@@ -216,7 +170,6 @@ public class SimulationTableTennisGame extends TableTennisGame{
 
         if (player.getLeftOrRightHanded().equals("right") && sideOfTable.equals("left")) {
             if (hit <= player.getBackhandPercentage()) {
-//                System.out.println(player.getFullName() + " returns the ball.");
                 this.currentHit = this.lastHit;
                 this.lastHit = player;
                 return true;
@@ -225,7 +178,6 @@ public class SimulationTableTennisGame extends TableTennisGame{
 
         if (player.getLeftOrRightHanded().equals("right") && sideOfTable.equals("right")) {
             if (hit <= player.getForehandPercentage()) {
-//                System.out.println(player.getFullName() + " returns the ball.");
                 this.currentHit = this.lastHit;
                 this.lastHit = player;
                 return true;

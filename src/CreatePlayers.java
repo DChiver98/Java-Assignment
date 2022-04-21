@@ -22,17 +22,4 @@ public class CreatePlayers {
         }
         return null;
     }
-
-    public static ArrayList<TennisPlayer> createTennisPlayers() {
-        Gson gson = new Gson();
-        try (Reader reader = new FileReader("src/Players.json")) {
-            Type listType = new TypeToken<ArrayList<TennisPlayer>>() {}.getType();
-            ArrayList<TennisPlayer> footballPlayersArray = gson.fromJson(reader, listType);
-            Collections.shuffle(footballPlayersArray);
-            return footballPlayersArray;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
 }
