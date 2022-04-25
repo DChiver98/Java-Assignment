@@ -67,4 +67,5 @@ public abstract class SportsPlayer {
     public void setLeftOrRightFooted(String leftOrRightFooted) {
         this.leftOrRightFooted = leftOrRightFooted;
     }
+
 }

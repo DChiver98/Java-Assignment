@@ -7,6 +7,9 @@ public class TableTennisPlayer extends SportsPlayer {
     private int forehandSkill;
     private int backhandPower;
     private int backhandSkill;
+    private int pointsWon;
+    private int gamesWon;
+    private int MatchesWon;
 
     public TableTennisPlayer(int playerID, String firstName, String lastName, int age, String gender, int servePower, int serveSkill, int forehandPower, int forehandSkill, int backhandPower, int backhandSkill, String leftOrRightHanded, String leftOrRightFooted) {
         super(firstName, lastName, age, gender, leftOrRightHanded, leftOrRightFooted);
@@ -86,4 +89,29 @@ public class TableTennisPlayer extends SportsPlayer {
     public int getBackhandPercentage() {
         return backhandPower * backhandSkill;
     }
+
+    public int getPointsWon() {
+        return pointsWon;
+    }
+
+    public void setPointsWon(int pointsWon) {
+        this.pointsWon = pointsWon;
+    }
+
+    public int getGamesWon() {
+        return gamesWon;
+    }
+
+    public void setGamesWon(int gamesWon) {
+        this.gamesWon = gamesWon;
+    }
+
+    public int getMatchesWon() {
+        return MatchesWon;
+    }
+
+    public void setMatchesWon(int matchesWon) {
+        MatchesWon = matchesWon;
+    }
+
 }

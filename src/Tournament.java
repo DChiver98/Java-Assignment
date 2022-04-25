@@ -1,8 +1,6 @@
-//import java.util.ArrayList;
-//
-//public interface Tournament {
-//
-//    public ArrayList getPlayers();
-//    public ArrayList playTournament(ArrayList);
-//
-//}
+public interface Tournament {
+
+    public void setupTournament();
+    public void playTournament() throws InterruptedException;
+
+}

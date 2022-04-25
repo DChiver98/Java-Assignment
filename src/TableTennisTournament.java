@@ -1,106 +1,146 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
-public class TableTennisTournament extends ArrayList {
+public class TableTennisTournament implements Tournament {
 
-    public ArrayList<TableTennisPlayer> getPlayers() {
+    private int numberOfPlayers;
+    private int numberOfRounds;
+    private final ArrayList<TableTennisPlayer> players = new ArrayList<>();
+    private final ArrayList<TableTennisPlayer> loosers = new ArrayList<>();
+    private TableTennisPlayer winner;
 
-        //Ask user for the amount of players.
+    public void setupTournament() {
+
         Scanner num = new Scanner(System.in);
-        System.out.println("How many players are there? Please choose 2,4,8,16,32,64,128,256 or 512 : ");
+        System.out.println("How many players are there? Please choose 4,8,16,32,64,128,256 or 512 : ");
 
         //Check if input is a not an integer.
         while(!num.hasNextInt()) {
             try {
-                System.out.println("Not a Number! Please enter 2,4,8,16,32,64,128,256 or 512 : ");
+                System.out.println("Not a Number! Please enter 4,8,16,32,64,128,256 or 512 : ");
                 num.next();
             } catch (InputMismatchException ex) {
                 num.next();
             }
         }
 
-        int numberOfPlayers = num.nextInt();
+        numberOfPlayers = num.nextInt();
 
         //Check if input is a valid number from the list.
-        while(Math.log(numberOfPlayers) / Math.log(2) % 1 != 0 || numberOfPlayers <= 1 || numberOfPlayers > 512) {
+        while(Math.log(numberOfPlayers) / Math.log(2) % 1 != 0 || numberOfPlayers < 4 || numberOfPlayers > 512) {
             try {
-                System.out.println("Please enter a valid number 2,4,8,16,32,64,128,256 or 512 : ");
+                System.out.println("Please enter a valid number 4,8,16,32,64,128,256 or 512 : ");
                 numberOfPlayers = num.nextInt();
             } catch (InputMismatchException ex) {
-                System.out.println("Not a Number! Please enter 2,4,8,16,32,64,128,256 or 512 : ");
                 num.next();
+                System.out.print("Not a Number! ");
             }
         }
-
-        num.close();
 
         //Retrieve number of players from player list.
         ArrayList<TableTennisPlayer> playersArray = CreatePlayers.createTableTennisPlayers();
-        ArrayList<TableTennisPlayer> players = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
             TableTennisPlayer player = playersArray.get(i);
             players.add(player);
         }
-        return players;
+
+        numberOfRounds = (int)(Math.log(numberOfPlayers) / Math.log(2));
     }
 
-    public ArrayList<TableTennisPlayer> playTournament(ArrayList<TableTennisPlayer> players) throws InterruptedException {
+    public void playTournament() throws InterruptedException {
 
-        int player1 = 0;
-        int player2 = 1;
+        //Create players for tournament.
+        setupTournament();
 
-        ArrayList<TableTennisPlayer> loosers = new ArrayList<>();
-
-        //Input to simulate or watch
-        Scanner num = new Scanner(System.in);
-        System.out.println("Please enter :  \n1 - watch round \n2 - simulate round");
-
-        //If user enters something other than an in Integer.
-        while(!num.hasNextInt()) {
-            try {
-                System.out.println("Not a Number! Please enter 1 to watch or 2 to simulate : ");
-                num.next();
-            } catch (InputMismatchException ex) {
-                num.next();
-            }
+        //Print's names of all players in the tournament.
+        System.out.print("\nPlayers in the tournament are : ");
+        for(TableTennisPlayer players : players) {
+            System.out.print(players.getFullName() + ", ");
         }
-
-        int simOrWatch = num.nextInt();
-
-        //If the user enters something other than a 1 or 2.
-        while(simOrWatch != 1 && simOrWatch != 2) {
-            try {
-                System.out.println("Invalid number. Please enter 1 to watch or 2 to simulate : ");
-                simOrWatch = num.nextInt();
-            } catch (InputMismatchException ex) {
-                System.out.println("Not a Number! Please enter 1 to watch or 2 to simulate : ");
-                num.next();
-            }
-        }
-
-        num.close();
+        System.out.println();
 
         //Play tournament
-        for(int i = 0; i < players.size()/2; i++) {
+        while (players.size() > 1) {
 
-            //If user enters 1 watch.
-            if(simOrWatch == 1) {
-                TableTennisGame watchGame = new TableTennisGame(players.get(player1), players.get(player2));
-                TableTennisPlayer looser = watchGame.playMatch();
-                loosers.add(looser);
+            switch(numberOfRounds) {
+                case 1 :
+                    System.out.println("\nNext Round : Final");
+                    break;
+                case 2 :
+                    System.out.println("\nNext Round : Semi-Final");
+                    break;
+                case 3 :
+                    System.out.println("\nNext Round : Quarter-Final");
+                    break;
+                default :
+                    System.out.println("\nNext Round : " + numberOfRounds);
             }
-            //If user enters 2 simulate.
-            if(simOrWatch == 2) {
-                SimulationTableTennisGame simGame = new SimulationTableTennisGame(players.get(player1), players.get(player2));
-                TableTennisPlayer looser = simGame.playMatch();
-                loosers.add(looser);
+
+            //Input to simulate or watch
+            Scanner num = new Scanner(System.in);
+            System.out.println("\nPlease enter :  \n1 - watch round \n2 - simulate round");
+
+            //If user enters something other than an in Integer.
+            while (!num.hasNextInt()) {
+                try {
+                    System.out.println("Not a Number! Please enter 1 to watch or 2 to simulate : ");
+                    num.next();
+                } catch (InputMismatchException ex) {
+                    num.next();
+                }
             }
-            //Next match.
-            player1 += 2;
-            player2 += 2;
+
+            int simOrWatch = num.nextInt();
+
+            //If the user enters something other than a 1 or 2.
+            while (simOrWatch != 1 && simOrWatch != 2) {
+                try {
+                    System.out.println("Please enter a valid number 1 to watch or 2 to simulate : ");
+                    simOrWatch = num.nextInt();
+                } catch (InputMismatchException ex) {
+                    num.next();
+                    System.out.print("Not a Number! ");
+                }
+            }
+
+            int player1 = 0;
+            int player2 = 1;
+
+            for (int i = 0; i < players.size()/2; i++) {
+
+                //If user enters 1 watch.
+                if (simOrWatch == 1) {
+                    TableTennisMatch watchGame = new TableTennisMatch(players.get(player1), players.get(player2));
+                    TableTennisPlayer looser = watchGame.playMatch();
+                    loosers.add(looser);
+                }
+                //If user enters 2 simulate.
+                if (simOrWatch == 2) {
+                    SimulationTableTennisMatch simGame = new SimulationTableTennisMatch(players.get(player1), players.get(player2));
+                    TableTennisPlayer looser = simGame.playMatch();
+                    loosers.add(looser);
+                }
+                //Next match.
+                player1 += 2;
+                player2 += 2;
+            }
+            for(TableTennisPlayer looser : loosers) {
+                players.remove(looser);
+            }
+            numberOfRounds --;
         }
-        return loosers;
+        this.winner = players.get(0);
+    }
+
+    public void tournamentResults() {
+
+        System.out.println("\nTournament Results : ");
+        System.out.println(String.format("1st place - %s with %o matches won, %o games won, and %o points won!",winner.getFullName(),winner.getMatchesWon(),winner.getGamesWon(),winner.getPointsWon()));
+        loosers.sort(Comparator.comparing(TableTennisPlayer::getMatchesWon).reversed());
+        loosers.sort(Comparator.comparing(TableTennisPlayer::getGamesWon).reversed());
+        loosers.sort(Comparator.comparing(TableTennisPlayer::getPointsWon).reversed());
+        System.out.println(String.format("2nd place - %s with %o matches won, %o games won, and %o points won!",loosers.get(0).getFullName(),loosers.get(0).getMatchesWon(),loosers.get(0).getGamesWon(),loosers.get(0).getPointsWon()));
+        System.out.println(String.format("3rd place - %s with %o matches won, %o games won, and %o points won!",loosers.get(1).getFullName(),loosers.get(1).getMatchesWon(),loosers.get(1).getGamesWon(),loosers.get(1).getPointsWon()));
+
     }
 }
 
