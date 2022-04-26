@@ -7,13 +7,13 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
     public TableTennisPlayer playMatch() {
         System.out.println("\n" + player1.getFullName() + " VS " + player2.getFullName());
         gameNumber = 1;
-        while (gameNumber <= 7) {
+        while (gameNumber <= Constants.MAX_GAMES_CAN_PLAY.gameConstants) {
             playGame();
-            if (player1Games == 4) {
+            if (player1Games == Constants.GAMES_TO_WIN.gameConstants) {
                 System.out.println(player1.getFullName() + " Wins the match.");
                 player1.setMatchesWon(player1.getMatchesWon() + 1);
                 return player2;
-            } else if (player2Games == 4) {
+            } else if (player2Games == Constants.GAMES_TO_WIN.gameConstants) {
                 System.out.println(player2.getFullName() + " Wins the match.");
                 player2.setMatchesWon(player2.getMatchesWon() + 1);
                 return player1;
@@ -26,22 +26,22 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
 
     public void playGame() {
 
-        while (player2Points < 11 && player1Points < 11) {
+        while (player2Points < Constants.POINTS_TO_WIN.gameConstants && player1Points < Constants.POINTS_TO_WIN.gameConstants) {
             playPoint();
             //If player 1 gets to 11 points.
-            if (player1Points == 11) {
+            if (player1Points == Constants.POINTS_TO_WIN.gameConstants) {
                 player1Games += 1;
                 player1.setGamesWon(player1.getGamesWon() + 1);
                 break;
             }
             //If player 2 gets to 11 points.
-            else if (player2Points == 11) {
+            else if (player2Points == Constants.POINTS_TO_WIN.gameConstants) {
                 player2Games += 1;
                 player2.setGamesWon(player2.getGamesWon() + 1);
                 break;
             }
             //If deuce(draw at 10 points)
-            else if (player1Points == 10 && player2Points == 10) {
+            else if (player1Points == Constants.DEUCE.gameConstants && player2Points == Constants.DEUCE.gameConstants) {
                 playPoint();
                 while (true) {
                     //If player 1 has advantage.
@@ -52,7 +52,7 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
                             player1.setGamesWon(player1.getGamesWon() + 1);
                             break;
                         } else {
-                            if (player1Points == 15) {
+                            if (player1Points == Constants.MAX_POINTS_CAN_PLAY.gameConstants) {
                                 player1Games += 1;
                                 player1.setGamesWon(player1.getGamesWon() + 1);
                                 break;
@@ -70,7 +70,7 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
                             player2.setGamesWon(player2.getGamesWon() + 1);
                             break;
                         } else {
-                            if (player2Points == 15) {
+                            if (player2Points == Constants.MAX_POINTS_CAN_PLAY.gameConstants) {
                                 player2Games += 1;
                                 player2.setGamesWon(player2.getGamesWon() + 1);
                                 break;
