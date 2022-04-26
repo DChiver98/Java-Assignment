@@ -12,7 +12,7 @@ public class TableTennisPlayer extends SportsPlayer {
     private int MatchesWon;
 
     public TableTennisPlayer(int playerID, String firstName, String lastName, int age, String gender, int servePower, int serveSkill, int forehandPower, int forehandSkill, int backhandPower, int backhandSkill, String leftOrRightHanded, String leftOrRightFooted) {
-        super(firstName, lastName, age, gender, leftOrRightHanded, leftOrRightFooted);
+        super(firstName, lastName, age, gender, leftOrRightHanded);
         this.playerID = playerID;
         this.servePower = servePower;
         this.serveSkill = serveSkill;

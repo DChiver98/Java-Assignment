@@ -16,6 +16,14 @@ public abstract class SportsPlayer {
         this.leftOrRightFooted = leftOrRightFooted;
     }
 
+    public SportsPlayer(String firstName, String lastName, int age, String gender, String leftOrRightHanded) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.gender = gender;
+        this.leftOrRightHanded = leftOrRightHanded;
+    }
+
     public String getFirstName() {
         return firstName;
     }
