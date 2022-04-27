@@ -1,5 +1,6 @@
 import java.util.*;
 
+/** Table tennis tournament class to setup and run tournament. Implements tournament interface **/
 public class TableTennisTournament implements Tournament {
 
     private int numberOfPlayers;
@@ -8,11 +9,14 @@ public class TableTennisTournament implements Tournament {
     private final ArrayList<TableTennisPlayer> loosers = new ArrayList<>();
     private TableTennisPlayer winner;
 
+    /** Sets up tournament by retrieveing number of players the user has entered. **/
     public void setupTournament() {
 
+        //Gets user input for how many players are in the tournament.
         Scanner input = new Scanner(System.in);
         System.out.println("How many players are there? Please enter 4,8,16,32,64,128,256 or 512 (the default is 64)");
 
+        //Error checking for if the user enters nothing(default to 64) or enters a non number character.
         while(numberOfPlayers == 0) {
 
             String num = input.nextLine();
@@ -20,11 +24,10 @@ public class TableTennisTournament implements Tournament {
             try {
                 if(Objects.equals(num, "")) {
                     numberOfPlayers = 64;
-                    break;
                 } else {
                     numberOfPlayers = Integer.parseInt(num);
-                    break;
                 }
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Not a number! Please enter a valid number 4,8,16,32,64,128,256 or 512");
             }
@@ -51,6 +54,7 @@ public class TableTennisTournament implements Tournament {
         numberOfRounds = (int)(Math.log(numberOfPlayers) / Math.log(2));
     }
 
+    /** Runs the tournament **/
     public void playTournament() throws InterruptedException {
 
         //Create players for tournament.
@@ -102,7 +106,7 @@ public class TableTennisTournament implements Tournament {
                 }
             }
 
-            //If the user enters something other than a 1 or 2.
+            //Error if the user enters something other than a 1 or 2.
             while (simOrWatch != 1 && simOrWatch != 2) {
                 try {
                     System.out.println("Please enter a valid number 1 to watch or 2 to simulate");
@@ -136,16 +140,20 @@ public class TableTennisTournament implements Tournament {
                 player1 += 2;
                 player2 += 2;
             }
+            //Remove loosing players from active tournament.
             for(TableTennisPlayer looser : loosers) {
                 players.remove(looser);
             }
             numberOfRounds --;
         }
+        //Set the winner.
         this.winner = players.get(0);
     }
 
+    /** Calculates and displays tournament results. **/
     public void tournamentResults() {
 
+        //Calculates and displays results.
         System.out.println("\nTournament Results : ");
         System.out.println(String.format("1st place - %s with %o matches won, %o games won, and %o points won!",winner.getFullName(),winner.getMatchesWon(),winner.getGamesWon(),winner.getPointsWon()));
         loosers.sort(Comparator.comparing(TableTennisPlayer::getMatchesWon).reversed());

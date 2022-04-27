@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/** Class to create players from the JSON file. **/
 public class CreatePlayers {
 
     public static ArrayList<TableTennisPlayer> createTableTennisPlayers() {

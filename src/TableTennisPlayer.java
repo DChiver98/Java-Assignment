@@ -1,3 +1,4 @@
+/** Class to create table tennis players uses sportPlayer class for generic properties **/
 public class TableTennisPlayer extends SportsPlayer {
 
     private int playerID;
@@ -11,6 +12,7 @@ public class TableTennisPlayer extends SportsPlayer {
     private int gamesWon;
     private int MatchesWon;
 
+    /** Constructor for table tennis player **/
     public TableTennisPlayer(int playerID, String firstName, String lastName, int age, String gender, int servePower, int serveSkill, int forehandPower, int forehandSkill, int backhandPower, int backhandSkill, String leftOrRightHanded, String leftOrRightFooted) {
         super(firstName, lastName, age, gender, leftOrRightHanded);
         this.playerID = playerID;
@@ -22,6 +24,7 @@ public class TableTennisPlayer extends SportsPlayer {
         this.backhandSkill = backhandSkill;
     }
 
+    /** Getters and Setter for table tennis players. **/
     public int getPlayerID() {
         return playerID;
     }

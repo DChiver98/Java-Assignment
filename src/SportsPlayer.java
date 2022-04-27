@@ -1,3 +1,4 @@
+/** Class for generic sports player can be inherited as base class for all types of sports player **/
 public abstract class SportsPlayer {
 
     private String firstName;
@@ -7,6 +8,7 @@ public abstract class SportsPlayer {
     private String leftOrRightHanded;
     private String leftOrRightFooted;
 
+    /** Generic constructor for sports player **/
     public SportsPlayer(String firstName, String lastName, int age, String gender, String leftOrRightHanded, String leftOrRightFooted) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -16,6 +18,7 @@ public abstract class SportsPlayer {
         this.leftOrRightFooted = leftOrRightFooted;
     }
 
+    /** Constructor for all sports that don't require left or right footed.**/
     public SportsPlayer(String firstName, String lastName, int age, String gender, String leftOrRightHanded) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,6 +26,8 @@ public abstract class SportsPlayer {
         this.gender = gender;
         this.leftOrRightHanded = leftOrRightHanded;
     }
+
+    /**Getters and Setters for class **/
 
     public String getFirstName() {
         return firstName;
