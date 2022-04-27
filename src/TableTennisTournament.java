@@ -11,24 +11,30 @@ public class TableTennisTournament implements Tournament {
     public void setupTournament() {
 
         Scanner num = new Scanner(System.in);
-        System.out.println("How many players are there? Please choose 4,8,16,32,64,128,256 or 512 : ");
+        System.out.println("How many players are there? Please enter 4,8,16,32,64,128,256 or 512 (the default is 64)");
 
-        //Check if input is a not an integer.
-        while(!num.hasNextInt()) {
+        while(numberOfPlayers == 0) {
+
+            String input = num.nextLine();
+
             try {
-                System.out.println("Not a Number! Please enter 4,8,16,32,64,128,256 or 512 : ");
-                num.next();
-            } catch (InputMismatchException ex) {
-                num.next();
+                if (Objects.equals(input, "")) {
+                    numberOfPlayers = 64;
+                    break;
+                } else {
+                    int test = Integer.parseInt(input);
+                    numberOfPlayers = test;
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not a number! Please enter a valid number 4,8,16,32,64,128,256 or 512");
             }
         }
 
-        numberOfPlayers = num.nextInt();
-
         //Check if input is a valid number from the list.
-        while(Math.log(numberOfPlayers) / Math.log(2) % 1 != 0 || numberOfPlayers < 4 || numberOfPlayers > 512) {
+        while (Math.log(numberOfPlayers) / Math.log(2) % 1 != 0 || numberOfPlayers < 4 || numberOfPlayers > 512) {
             try {
-                System.out.println("Please enter a valid number 4,8,16,32,64,128,256 or 512 : ");
+                System.out.println("Please enter a valid number 4,8,16,32,64,128,256 or 512");
                 numberOfPlayers = num.nextInt();
             } catch (InputMismatchException ex) {
                 num.next();
@@ -39,7 +45,7 @@ public class TableTennisTournament implements Tournament {
         //Retrieve number of players from player list.
         ArrayList<TableTennisPlayer> playersArray = CreatePlayers.createTableTennisPlayers();
         for (int i = 0; i < numberOfPlayers; i++) {
-            TableTennisPlayer player = playersArray.get(i);
+             TableTennisPlayer player = playersArray.get(i);
             players.add(player);
         }
 
