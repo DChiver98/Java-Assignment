@@ -5,8 +5,6 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
     }
 
     public TableTennisPlayer playMatch() {
-        System.out.println("\n" + player1.getFullName() + " VS " + player2.getFullName());
-        gameNumber = 1;
         while (gameNumber <= Constants.MAX_GAMES_CAN_PLAY.gameConstants) {
             playGame();
             if (player1Games == Constants.GAMES_TO_WIN.gameConstants) {
@@ -84,6 +82,7 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
         }
         player1Points = 0;
         player2Points = 0;
+        pointNumber = 0;
     }
 
     public void playPoint() {
@@ -98,6 +97,9 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
                 }
             }
         }
+
+        pointNumber++;
+
         if (lastHit.getPlayerID() == player1.getPlayerID()) {
             player1Points += 1;
             player1.setPointsWon(player1.getPointsWon() + 1);

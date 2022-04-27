@@ -10,20 +10,19 @@ public class TableTennisTournament implements Tournament {
 
     public void setupTournament() {
 
-        Scanner num = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         System.out.println("How many players are there? Please enter 4,8,16,32,64,128,256 or 512 (the default is 64)");
 
         while(numberOfPlayers == 0) {
 
-            String input = num.nextLine();
+            String num = input.nextLine();
 
             try {
-                if (Objects.equals(input, "")) {
+                if(Objects.equals(num, "")) {
                     numberOfPlayers = 64;
                     break;
                 } else {
-                    int test = Integer.parseInt(input);
-                    numberOfPlayers = test;
+                    numberOfPlayers = Integer.parseInt(num);
                     break;
                 }
             } catch (NumberFormatException e) {
@@ -35,9 +34,9 @@ public class TableTennisTournament implements Tournament {
         while (Math.log(numberOfPlayers) / Math.log(2) % 1 != 0 || numberOfPlayers < 4 || numberOfPlayers > 512) {
             try {
                 System.out.println("Please enter a valid number 4,8,16,32,64,128,256 or 512");
-                numberOfPlayers = num.nextInt();
+                numberOfPlayers = input.nextInt();
             } catch (InputMismatchException ex) {
-                num.next();
+                input.next();
                 System.out.print("Not a Number! ");
             }
         }
@@ -82,28 +81,34 @@ public class TableTennisTournament implements Tournament {
             }
 
             //Input to simulate or watch
-            Scanner num = new Scanner(System.in);
-            System.out.println("\nPlease enter :  \n1 - watch round \n2 - simulate round");
+            Scanner input = new Scanner(System.in);
+            System.out.println("\nPlease enter :  \n1 - watch round \n2 - simulate round \n(default is simulate)");
+            int simOrWatch = 0;
 
-            //If user enters something other than an in Integer.
-            while (!num.hasNextInt()) {
+            while(simOrWatch == 0) {
+
+                String num = input.nextLine();
+
                 try {
-                    System.out.println("Not a Number! Please enter 1 to watch or 2 to simulate : ");
-                    num.next();
-                } catch (InputMismatchException ex) {
-                    num.next();
+                    if(Objects.equals(num, "")) {
+                        simOrWatch = 2;
+                        break;
+                    } else {
+                        simOrWatch = Integer.parseInt(num);
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Not a number! Please enter a valid number 1 to watch or 2 to simulate");
                 }
             }
-
-            int simOrWatch = num.nextInt();
 
             //If the user enters something other than a 1 or 2.
             while (simOrWatch != 1 && simOrWatch != 2) {
                 try {
-                    System.out.println("Please enter a valid number 1 to watch or 2 to simulate : ");
-                    simOrWatch = num.nextInt();
+                    System.out.println("Please enter a valid number 1 to watch or 2 to simulate");
+                    simOrWatch = input.nextInt();
                 } catch (InputMismatchException ex) {
-                    num.next();
+                    input.next();
                     System.out.print("Not a Number! ");
                 }
             }
@@ -111,7 +116,9 @@ public class TableTennisTournament implements Tournament {
             int player1 = 0;
             int player2 = 1;
 
-            for (int i = 0; i < players.size()/2; i++) {
+            for (int i = 1; i <= players.size()/2; i++) {
+
+                System.out.println(String.format("\nMatch %o : %s VS %s\n", i,players.get(player1).getFullName(),players.get(player2).getFullName()));
 
                 //If user enters 1 watch.
                 if (simOrWatch == 1) {
