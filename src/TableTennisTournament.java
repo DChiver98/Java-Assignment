@@ -1,6 +1,9 @@
 import java.util.*;
 
-/** Table tennis tournament class to setup and run tournament. Implements tournament interface **/
+/**
+ * Table tennis tournament class to set up and run tournament.
+ * Please see {@link Tournament} for implemented interface.
+ */
 public class TableTennisTournament implements Tournament {
 
     private int numberOfPlayers;
@@ -9,8 +12,10 @@ public class TableTennisTournament implements Tournament {
     private final ArrayList<TableTennisPlayer> loosers = new ArrayList<>();
     private TableTennisPlayer winner;
 
-    /** Sets up tournament by retrieveing number of players the user has entered. **/
-    public void setupTournament() {
+    /**
+     * Sets up table tennis tournament by retrieving number of players the user has entered.
+     */
+    public void setUpTournament() {
 
         //Gets user input for how many players are in the tournament.
         Scanner input = new Scanner(System.in);
@@ -47,18 +52,22 @@ public class TableTennisTournament implements Tournament {
         //Retrieve number of players from player list.
         ArrayList<TableTennisPlayer> playersArray = CreatePlayers.createTableTennisPlayers();
         for (int i = 0; i < numberOfPlayers; i++) {
-             TableTennisPlayer player = playersArray.get(i);
+            assert playersArray != null;
+            TableTennisPlayer player = playersArray.get(i);
             players.add(player);
         }
 
         numberOfRounds = (int)(Math.log(numberOfPlayers) / Math.log(2));
     }
 
-    /** Runs the tournament **/
+    /**
+     * Runs a table tennis tournament
+     * @throws InterruptedException
+     */
     public void playTournament() throws InterruptedException {
 
         //Create players for tournament.
-        setupTournament();
+        setUpTournament();
 
         //Print's names of all players in the tournament.
         System.out.print("\nPlayers in the tournament are : ");
@@ -70,6 +79,7 @@ public class TableTennisTournament implements Tournament {
         //Play tournament
         while (players.size() > 1) {
 
+            //Print next number.
             switch(numberOfRounds) {
                 case 1 :
                     System.out.println("\nNext Round : Final");
@@ -89,6 +99,7 @@ public class TableTennisTournament implements Tournament {
             System.out.println("\nPlease enter :  \n1 - watch round \n2 - simulate round \n(default is simulate)");
             int simOrWatch = 0;
 
+            //If no number entered set default, if non-number characters entered ask user to try again.
             while(simOrWatch == 0) {
 
                 String num = input.nextLine();
@@ -96,11 +107,10 @@ public class TableTennisTournament implements Tournament {
                 try {
                     if(Objects.equals(num, "")) {
                         simOrWatch = 2;
-                        break;
                     } else {
                         simOrWatch = Integer.parseInt(num);
-                        break;
                     }
+                    break;
                 } catch (NumberFormatException e) {
                     System.out.println("Not a number! Please enter a valid number 1 to watch or 2 to simulate");
                 }
@@ -122,7 +132,7 @@ public class TableTennisTournament implements Tournament {
 
             for (int i = 1; i <= players.size()/2; i++) {
 
-                System.out.println(String.format("\nMatch %o : %s VS %s\n", i,players.get(player1).getFullName(),players.get(player2).getFullName()));
+                System.out.printf("\nMatch %d : %s VS %s\n%n", i,players.get(player1).getFullName(),players.get(player2).getFullName());
 
                 //If user enters 1 watch.
                 if (simOrWatch == 1) {
@@ -150,18 +160,19 @@ public class TableTennisTournament implements Tournament {
         this.winner = players.get(0);
     }
 
-    /** Calculates and displays tournament results. **/
+    /**
+     * Calculates and displays table tennis tournament results.
+     */
     public void tournamentResults() {
 
         //Calculates and displays results.
         System.out.println("\nTournament Results : ");
-        System.out.println(String.format("1st place - %s with %o matches won, %o games won, and %o points won!",winner.getFullName(),winner.getMatchesWon(),winner.getGamesWon(),winner.getPointsWon()));
+        System.out.printf("1st place - %s with %d matches won, %d games won, and %d points won!%n",winner.getFullName(),winner.getMatchesWon(),winner.getGamesWon(),winner.getPointsWon());
         loosers.sort(Comparator.comparing(TableTennisPlayer::getMatchesWon).reversed());
         loosers.sort(Comparator.comparing(TableTennisPlayer::getGamesWon).reversed());
         loosers.sort(Comparator.comparing(TableTennisPlayer::getPointsWon).reversed());
-        System.out.println(String.format("2nd place - %s with %o matches won, %o games won, and %o points won!",loosers.get(0).getFullName(),loosers.get(0).getMatchesWon(),loosers.get(0).getGamesWon(),loosers.get(0).getPointsWon()));
-        System.out.println(String.format("3rd place - %s with %o matches won, %o games won, and %o points won!",loosers.get(1).getFullName(),loosers.get(1).getMatchesWon(),loosers.get(1).getGamesWon(),loosers.get(1).getPointsWon()));
-
+        System.out.printf("2nd place - %s with %d matches won, %d games won, and %d points won!%n",loosers.get(0).getFullName(),loosers.get(0).getMatchesWon(),loosers.get(0).getGamesWon(),loosers.get(0).getPointsWon());
+        System.out.printf("3rd place - %s with %d matches won, %d games won, and %d points won!%n",loosers.get(1).getFullName(),loosers.get(1).getMatchesWon(),loosers.get(1).getGamesWon(),loosers.get(1).getPointsWon());
     }
 }
 

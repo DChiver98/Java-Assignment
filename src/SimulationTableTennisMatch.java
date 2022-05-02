@@ -1,12 +1,22 @@
-/** Creates simulatedTableTennisMatch inherits from TableTennisMatch **/
+/**
+ * Creates simulated table tennis match.
+ * Inherits from {@link TableTennisMatch}.
+ */
 public class SimulationTableTennisMatch extends TableTennisMatch {
 
-    /** Constructor for SimulatedTableTennisMatch inherits from TableTennisMatch **/
+    /**
+     * Constructor for SimulatedTableTennisMatch calls super from table tennis match.
+     * @param player1 first player for the match.
+     * @param player2 second player for the match.
+     */
     public SimulationTableTennisMatch(TableTennisPlayer player1, TableTennisPlayer player2) {
         super(player1, player2);
     }
 
-    /** Overrides playGame in TableTennisMatch to stop display of live match. **/
+    /**
+     * Plays a simulated table tennis match.
+     * Overrides {@link TableTennisMatch#playMatch()} **/
+    @Override
     public TableTennisPlayer playMatch() {
         //Keep playing games until winner or 7 played.
         while (gameNumber <= Constants.MAX_GAMES_CAN_PLAY.gameConstants) {
@@ -27,7 +37,10 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
         return null;
     }
 
-    /** Overrides playGame in TableTennisMatch to stop display of live match. **/
+    /**
+     * Plays a simulated table tennis game
+     * Overrides {@link TableTennisMatch#playGame()}**/
+    @Override
     public void playGame() {
 
         while (player2Points < Constants.POINTS_TO_WIN.gameConstants && player1Points < Constants.POINTS_TO_WIN.gameConstants) {
@@ -97,9 +110,12 @@ public class SimulationTableTennisMatch extends TableTennisMatch {
         pointNumber = 0;
     }
 
-    /**Overrides playPoint in TableTennisMatch to stop display of live match. **/
+    /**
+     * Plays a simulated point.
+     * Overrides {@link TableTennisMatch#playPoint()}
+     */
+    @Override
     public void playPoint() {
-
         //Play point.
         whoServes();
         if (SuccessfulServe(this.currentHit)) {

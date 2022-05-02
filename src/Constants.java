@@ -1,4 +1,6 @@
-/** Enums for static game variables **/
+/***
+ * Enums for static game variables.
+ */
 public enum Constants {
 
     POINTS_TO_WIN(11),

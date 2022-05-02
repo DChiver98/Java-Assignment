@@ -8,12 +8,16 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/** Class to create players from the JSON file. **/
+/** Class to create table tennis players from the JSON file. **/
 public class CreatePlayers {
 
+    /**
+     * Pulls data from JSON file and creates player objects.
+     * @return ArrayList of table tennis players.
+     */
     public static ArrayList<TableTennisPlayer> createTableTennisPlayers() {
         Gson gson = new Gson();
-        try (Reader file = new FileReader("src/Players.json")) {
+        try (Reader file = new FileReader("src/players.json")) {
             Type listType = new TypeToken<ArrayList<TableTennisPlayer>>() {}.getType();
             ArrayList<TableTennisPlayer> tableTennisPlayersArray = gson.fromJson(file, listType);
             Collections.shuffle(tableTennisPlayersArray);

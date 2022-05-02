@@ -1,11 +1,12 @@
 import java.util.Random;
 
-/** Creates watchable Table Tennis Match **/
+/**
+ * Creates watchable Table Tennis Match.
+ */
 public class TableTennisMatch {
 
-    /** Protected variables to allow access for SimulateTableTennisMatch **/
-    protected TableTennisPlayer player1;
-    protected TableTennisPlayer player2;
+    protected final TableTennisPlayer player1;
+    protected final TableTennisPlayer player2;
     protected int player1Points;
     protected int player2Points;
     protected TableTennisPlayer currentHit;
@@ -16,13 +17,21 @@ public class TableTennisMatch {
     protected int player2Games;
     protected int gameNumber = 1;
 
-    /** Constructor for Table Tennis match **/
+    /**
+     * Constructor for Table Tennis match
+     * @param player1 First player for the match.
+     * @param player2 Second player for the match.
+     */
     public TableTennisMatch(TableTennisPlayer player1, TableTennisPlayer player2) {
         this.player1 = player1;
         this.player2 = player2;
     }
 
-    /** Plays individual match **/
+    /**
+     * Plays live table tennis match.
+     * @return winning player.
+     * @throws InterruptedException
+     */
     public TableTennisPlayer playMatch() throws InterruptedException {
         //Keep playing games until winner or 7 played.
         while (gameNumber <= Constants.MAX_GAMES_CAN_PLAY.gameConstants) {
@@ -44,7 +53,10 @@ public class TableTennisMatch {
         return null;
     }
 
-    /** Plays individual game **/
+    /***
+     * Plays live table tennis game.
+     * @throws InterruptedException
+     */
     public void playGame() throws InterruptedException {
 
         while (player2Points < Constants.POINTS_TO_WIN.gameConstants && player1Points < Constants.POINTS_TO_WIN.gameConstants) {
@@ -63,14 +75,14 @@ public class TableTennisMatch {
             }
             //If deuce(draw at 10 points)
             else if (player1Points == Constants.DEUCE.gameConstants && player2Points == Constants.DEUCE.gameConstants) {
-                System.out.print(String.format("Game %o - Deuce!", gameNumber));
+                System.out.printf("Game %d - Deuce!", gameNumber);
                 Thread.sleep(2500);
                 System.out.print("\r");
                 playPoint();
                 while (true) {
                     //If player 1 has advantage.
                     if (player1Points == player2Points + 1) {
-                        System.out.print(String.format("Game %o - %s advantage!", gameNumber, player1.getFullName()));
+                        System.out.printf("Game %d - %s advantage!", gameNumber, player1.getFullName());
                         Thread.sleep(2500);
                         System.out.print("\r");
                         playPoint();
@@ -94,7 +106,7 @@ public class TableTennisMatch {
                     }
                     //If player 2 has advantage.
                     if (player2Points == player1Points + 1) {
-                        System.out.print(String.format("Game %o - %s advantage!", gameNumber, player2.getFullName()));
+                        System.out.printf("Game %d - %s advantage!", gameNumber, player2.getFullName());
                         Thread.sleep(2500);
                         System.out.print("\r");
                         playPoint();
@@ -124,7 +136,10 @@ public class TableTennisMatch {
         pointNumber = 0;
     }
 
-    /** Plays individual point **/
+    /**
+     * Plays individual point.
+     * @throws InterruptedException
+     */
     public void playPoint() throws InterruptedException {
 
         //Play point.
@@ -149,13 +164,15 @@ public class TableTennisMatch {
         }
 
         //Print live game to terminal.
-        System.out.print(String.format("Game %o - " + player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points, gameNumber));
+        System.out.printf("Game %d - " + player1.getFullName() + " : " + player1Points + " " + player2.getFullName() + " : " + player2Points, gameNumber);
         Thread.sleep(250);
         System.out.print("\r");
 
     }
 
-    /** Decides who is serving for each point **/
+    /**
+     * Decides who is serving for each point.
+     */
     public void whoServes() {
 
         int num;
@@ -195,7 +212,11 @@ public class TableTennisMatch {
         }
     }
 
-    /** Decides if the players serve was successful or not **/
+    /***
+     * Decides if the players serve was successful or not.
+     * @param player current server.
+     * @return Whether player successfully serves or not.
+     */
     public boolean SuccessfulServe(TableTennisPlayer player) {
 
         //Does the player successfully serve or fail the serve.
@@ -210,7 +231,11 @@ public class TableTennisMatch {
         return false;
     }
 
-    /** Decides if the player successfully returned the ball or not **/
+    /**
+     * Decides if the player successfully returned the ball or not.
+     * @param player player that needs to return ball.
+     * @return whether player returns ball or not.
+     */
     public boolean returnBall(TableTennisPlayer player) {
 
         Random rand = new Random();
